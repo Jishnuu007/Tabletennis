@@ -3,237 +3,439 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MRSPTTA | Table Tennis Academy</title>
+    <title>ProSpin | Elite Table Tennis Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.0/lucide.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: white; }
-        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
-        .bg-tt-hero { 
-            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
-            url('https://images.unsplash.com/photo-1534158914592-062992fbe900?auto=format&fit=crop&q=80&w=1600');
-            background-size: cover; background-position: center;
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600;800&display=swap');
+        
+        :root {
+            --bg-dark: #0f172a;
+            --accent-red: #ef4444;
+            --accent-blue: #3b82f6;
+            --card-bg: rgba(30, 41, 59, 0.7);
         }
-        .accent-red { color: #ef4444; }
-        .bg-accent-red { background-color: #ef4444; }
+
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: white; overflow-x: hidden; }
+        .font-brand { font-family: 'Orbitron', sans-serif; }
+        
+        .glass { background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+        .hero-gradient { background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1534158914592-062992fbe900?q=80&w=1600'); background-size: cover; background-position: center; }
         .hidden-section { display: none; }
+        
+        input, select { background: #1e293b !important; border: 1px solid #334155 !important; color: white !important; }
+        .status-paid { color: #10b981; background: rgba(16, 185, 129, 0.1); }
+        .status-due { color: #f59e0b; background: rgba(245, 158, 11, 0.1); }
+        .status-overdue { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
     </style>
 </head>
 <body>
 
-    <nav class="fixed w-full z-50 glass-card px-4 py-3 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <div class="bg-accent-red p-1 rounded-full"><i data-lucide="table-tennis" class="text-white w-5 h-5"></i></div>
-            <span class="font-bold text-xl tracking-tight">SPIN<span class="text-red-500">MASTER</span></span>
+    <nav class="fixed w-full z-50 glass border-b border-white/5 px-4 md:px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2 cursor-pointer" onclick="showSection('home')">
+            <div class="bg-red-600 p-1.5 rounded-lg"><i data-lucide="table-tennis" class="w-6 h-6 text-white"></i></div>
+            <span class="font-brand text-xl font-bold tracking-tighter">PRO<span class="text-blue-500">SPIN</span></span>
         </div>
-        <div id="nav-links" class="hidden md:flex gap-6 text-sm font-medium">
-            <a href="#" onclick="showSection('home')" class="hover:text-red-500 transition">Home</a>
-            <a href="#" onclick="showSection('programs')" class="hover:text-red-500 transition">Programs</a>
-            <a href="#" onclick="showSection('tournaments')" class="hover:text-red-500 transition">Tournaments</a>
+        <div class="hidden md:flex gap-8 text-sm font-semibold uppercase tracking-widest">
+            <a href="javascript:void(0)" onclick="showSection('home')" class="hover:text-red-500 transition">Home</a>
+            <a href="javascript:void(0)" onclick="showSection('programs')" class="hover:text-red-500 transition">Programs</a>
+            <a href="javascript:void(0)" onclick="showSection('tournaments-pub')" class="hover:text-red-500 transition">Tournaments</a>
         </div>
-        <button id="auth-btn" onclick="showSection('login')" class="bg-accent-red px-5 py-2 rounded-full text-sm font-bold hover:bg-red-600 transition">Login</button>
+        <div id="auth-controls">
+            <button onclick="showSection('login-page')" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full text-xs font-bold uppercase transition">Login / Sign Up</button>
+        </div>
     </nav>
 
-    <section id="home" class="section pt-32 pb-20 px-6 bg-tt-hero min-h-screen flex flex-col justify-center items-center text-center">
-        <h1 class="text-5xl md:text-7xl font-bold mb-4">SMASH YOUR <span class="text-red-500">LIMITS.</span></h1>
-        <p class="text-gray-300 max-w-2xl text-lg mb-8">Elite training for the next generation of champions. Professional coaching, world-class facilities, and a path to pro.</p>
-        <div class="flex gap-4">
-            <button onclick="showSection('login')" class="bg-accent-red px-8 py-3 rounded-lg font-bold">Join Academy</button>
-            <button onclick="showSection('programs')" class="border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/10">View Batches</button>
+    <section id="home" class="section pt-32 pb-20 px-6 hero-gradient min-h-screen flex flex-col justify-center items-center text-center">
+        <h1 class="text-5xl md:text-8xl font-black mb-6 uppercase leading-none">Train Like a <span class="text-red-500">Pro.</span></h1>
+        <p class="text-gray-400 max-w-2xl text-lg mb-10">The ultimate Table Tennis Academy Management System. Track your progress, manage fees, and compete in elite tournaments.</p>
+        <div class="flex flex-col md:flex-row gap-4">
+            <button onclick="showSection('login-page')" class="bg-red-600 px-10 py-4 rounded-xl font-bold text-lg hover:scale-105 transition">GET STARTED</button>
+            <button onclick="showSection('programs')" class="glass px-10 py-4 rounded-xl font-bold text-lg hover:bg-white/10 transition">VIEW PROGRAMS</button>
+        </div>
+        <div class="grid grid-cols-3 gap-8 mt-20 text-center">
+            <div><p class="text-3xl font-bold text-blue-500">15+</p><p class="text-xs text-gray-500 uppercase">Expert Coaches</p></div>
+            <div><p class="text-3xl font-bold text-red-500">500+</p><p class="text-xs text-gray-500 uppercase">Students</p></div>
+            <div><p class="text-3xl font-bold text-blue-500">12</p><p class="text-xs text-gray-500 uppercase">ITF Tables</p></div>
         </div>
     </section>
 
-    <section id="programs" class="section hidden-section pt-32 px-6 max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold mb-10 text-center">Training <span class="text-red-500">Programs</span></h2>
+    <section id="programs" class="section hidden-section pt-32 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-black mb-4 uppercase">Training <span class="text-blue-500">Programs</span></h2>
+            <p class="text-gray-400">Batches designed for every skill level.</p>
+        </div>
         <div class="grid md:grid-cols-3 gap-8">
-            <div class="glass-card p-8 rounded-2xl border-t-4 border-blue-500">
-                <h3 class="text-xl font-bold mb-2">Beginner</h3>
-                <p class="text-gray-400 mb-4">Focus on grip, basic strokes, and footwork basics.</p>
-                <div class="text-sm space-y-2">
-                    <p>🕒 Mon-Wed-Fri (4 PM)</p>
-                    <p>🏆 Foundation Level</p>
-                </div>
+            <div class="glass p-8 rounded-3xl border-l-4 border-blue-500">
+                <h3 class="text-2xl font-bold mb-4">BEGINNER</h3>
+                <ul class="space-y-3 text-gray-400 text-sm mb-8">
+                    <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Grip & Stance Fundamentals</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Hand-eye coordination</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Basic Forehand/Backhand</li>
+                </ul>
+                <p class="font-bold text-lg mb-1 text-blue-400">4:00 PM - 5:30 PM</p>
+                <p class="text-xs text-gray-500">Mon, Wed, Fri</p>
             </div>
-            <div class="glass-card p-8 rounded-2xl border-t-4 border-red-500">
-                <h3 class="text-xl font-bold mb-2">Intermediate</h3>
-                <p class="text-gray-400 mb-4">Advanced spin control, multi-ball drills, and tactics.</p>
-                <div class="text-sm space-y-2">
-                    <p>🕒 Tue-Thu-Sat (5 PM)</p>
-                    <p>🏆 State Level Prep</p>
-                </div>
+            <div class="glass p-8 rounded-3xl border-l-4 border-red-500 shadow-2xl shadow-red-500/10">
+                <h3 class="text-2xl font-bold mb-4">INTERMEDIATE</h3>
+                <ul class="space-y-3 text-gray-400 text-sm mb-8">
+                    <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-red-500"></i> Spin Variations</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-red-500"></i> Footwork Drills</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-red-500"></i> Match Tactics</li>
+                </ul>
+                <p class="font-bold text-lg mb-1 text-red-400">5:30 PM - 7:00 PM</p>
+                <p class="text-xs text-gray-500">Tue, Thu, Sat</p>
             </div>
-            <div class="glass-card p-8 rounded-2xl border-t-4 border-yellow-500">
-                <h3 class="text-xl font-bold mb-2">Advanced / Pro</h3>
-                <p class="text-gray-400 mb-4">High-intensity training, video analysis, and tournament play.</p>
-                <div class="text-sm space-y-2">
-                    <p>🕒 Daily (6 AM & 6 PM)</p>
-                    <p>🏆 National Level</p>
+            <div class="glass p-8 rounded-3xl border-l-4 border-white">
+                <h3 class="text-2xl font-bold mb-4">ADVANCED</h3>
+                <ul class="space-y-3 text-gray-400 text-sm mb-8">
+                    <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-white"></i> High-intensity Training</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-white"></i> Video Analysis</li>
+                    <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-white"></i> National Prep</li>
+                </ul>
+                <p class="font-bold text-lg mb-1">6:00 AM - 8:00 AM</p>
+                <p class="text-xs text-gray-500">Daily</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="tournaments-pub" class="section hidden-section pt-32 px-6 max-w-5xl mx-auto">
+        <h2 class="text-4xl font-black mb-10 text-center uppercase">Upcoming <span class="text-red-500">Tournaments</span></h2>
+        <div id="tournament-list-public" class="space-y-4">
+            </div>
+    </section>
+
+    <section id="login-page" class="section hidden-section pt-40 px-6 flex justify-center">
+        <div class="glass p-10 rounded-3xl w-full max-w-md">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-2">Welcome Back</h2>
+                <p class="text-gray-400 text-sm">Access your student or admin dashboard</p>
+            </div>
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-xs uppercase font-bold text-gray-500 mb-2 tracking-widest">Student ID / Admin User</label>
+                    <input id="login-id" type="text" class="w-full p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="e.g. STU101 or admin">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase font-bold text-gray-500 mb-2 tracking-widest">Password</label>
+                    <input id="login-pass" type="password" class="w-full p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="••••••••">
+                </div>
+                <button onclick="handleLogin()" class="w-full bg-red-600 hover:bg-red-700 py-4 rounded-xl font-bold uppercase tracking-widest transition">Sign In</button>
+                <div class="text-center">
+                    <button class="text-blue-400 text-xs uppercase font-bold tracking-widest">Forgot Password?</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="login" class="section hidden-section pt-40 px-6 flex justify-center">
-        <div class="glass-card p-8 rounded-2xl w-full max-w-md">
-            <h2 class="text-2xl font-bold mb-6 text-center">Academy Login</h2>
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-sm text-gray-400 mb-1">Student ID / Phone</label>
-                    <input id="login-id" type="text" placeholder="STU101" class="w-full bg-slate-900 border border-white/10 p-3 rounded-lg focus:outline-none focus:border-red-500">
-                </div>
-                <div>
-                    <label class="block text-sm text-gray-400 mb-1">Password</label>
-                    <input id="login-pass" type="password" placeholder="••••••••" class="w-full bg-slate-900 border border-white/10 p-3 rounded-lg focus:outline-none focus:border-red-500">
-                </div>
-                <button onclick="handleLogin()" class="w-full bg-accent-red py-3 rounded-lg font-bold mt-4">Sign In</button>
-                <p class="text-xs text-center text-gray-500">Demo: Use 'admin' for Admin or 'student' for Student dashboard.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="student-dash" class="section hidden-section pt-24 px-4 max-w-4xl mx-auto">
-        <div class="flex justify-between items-end mb-8">
+    <section id="student-dash" class="section hidden-section pt-24 px-4 pb-20 max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
             <div>
-                <p class="text-red-500 font-bold">Welcome back,</p>
-                <h1 class="text-3xl font-bold">Aryan Sharma</h1>
+                <h1 class="text-3xl font-black">STUDENT <span class="text-red-500">PORTAL</span></h1>
+                <p class="text-gray-400" id="student-welcome">Welcome, Player</p>
             </div>
-            <div class="text-right">
-                <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Active Student</span>
+            <div class="flex gap-4">
+                <div class="glass px-4 py-2 rounded-xl text-center">
+                    <p class="text-[10px] text-gray-500 uppercase">Batch</p>
+                    <p class="text-sm font-bold" id="stu-batch-display">Intermediate</p>
+                </div>
+                <div class="glass px-4 py-2 rounded-xl text-center">
+                    <p class="text-[10px] text-gray-500 uppercase">ID</p>
+                    <p class="text-sm font-bold" id="stu-id-display">STU101</p>
+                </div>
             </div>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-6">
-            <div class="glass-card p-6 rounded-2xl">
-                <div class="flex justify-between items-start mb-4">
-                    <h3 class="font-bold flex items-center gap-2"><i data-lucide="credit-card" class="w-5 h-5"></i> Academy Fees</h3>
-                    <span class="text-red-400 text-xs font-bold">DUE IN 3 DAYS</span>
+        <div class="grid lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-8">
+                <div class="glass p-8 rounded-3xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 opacity-10"><i data-lucide="wallet" class="w-20 h-20"></i></div>
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2"><i data-lucide="credit-card" class="text-blue-500"></i> Academy Fees</h3>
+                    <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="flex-1">
+                            <p class="text-sm text-gray-400 mb-1">Current Status</p>
+                            <span id="fee-badge" class="px-4 py-1 rounded-full text-xs font-bold uppercase status-due">DUE</span>
+                            <p class="text-4xl font-black mt-4">$150.00</p>
+                            <p class="text-xs text-gray-500 mt-1 italic">Monthly membership due on 5th Jan 2026</p>
+                        </div>
+                        <div class="w-full md:w-auto">
+                            <button onclick="payFee('academy')" id="pay-academy-btn" class="w-full bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-2xl font-bold transition">PAY ACADEMY FEE</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-slate-900/50 p-4 rounded-xl mb-4">
-                    <p class="text-sm text-gray-400">Monthly Training Fee</p>
-                    <p class="text-2xl font-bold">$150.00</p>
+
+                <div class="glass p-8 rounded-3xl">
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2"><i data-lucide="trophy" class="text-red-500"></i> Active Tournaments</h3>
+                    <div id="student-tournaments" class="grid md:grid-cols-2 gap-4">
+                        </div>
                 </div>
-                <button onclick="alert('Redirecting to Payment Gateway...')" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-sm">Pay Fees Now</button>
             </div>
 
-            <div class="glass-card p-6 rounded-2xl">
-                <h3 class="font-bold mb-4 flex items-center gap-2"><i data-lucide="trophy" class="w-5 h-5"></i> Tournaments</h3>
-                <div class="space-y-3">
-                    <div class="border-b border-white/5 pb-2">
-                        <p class="text-sm font-semibold">City Open Championship</p>
-                        <p class="text-xs text-gray-400">Oct 24 • Entry: $25</p>
-                        <button class="mt-2 text-xs text-red-400 font-bold">Register Now →</button>
+            <div class="space-y-8">
+                <div class="glass p-8 rounded-3xl text-center">
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-6">Entry QR Code</h3>
+                    <div class="bg-white p-4 rounded-2xl inline-block mb-4">
+                        <img id="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=STU101_PENDING" alt="QR">
+                    </div>
+                    <p class="text-xs text-gray-400">Scan at entrance for attendance</p>
+                </div>
+
+                <div class="glass p-8 rounded-3xl">
+                    <h3 class="text-sm font-bold uppercase tracking-widest text-gray-500 mb-6">Notifications</h3>
+                    <div class="space-y-4" id="notifications-list">
+                        <div class="border-b border-white/5 pb-3">
+                            <p class="text-xs font-bold text-red-500">SYSTEM</p>
+                            <p class="text-sm">New Tournament: Winter Open 2026 is now open for registration!</p>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center">
-                <h3 class="font-bold mb-4">Attendance QR</h3>
-                <div class="bg-white p-2 rounded-lg mb-2">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=STU101_PAID" alt="QR Code">
-                </div>
-                <p class="text-xs text-gray-400">Show this at the reception for entry</p>
-            </div>
         </div>
     </section>
 
-    <section id="admin-dash" class="section hidden-section pt-24 px-4 max-w-6xl mx-auto">
-        <h1 class="text-3xl font-bold mb-8">Admin <span class="text-red-500">Control Panel</span></h1>
+    <section id="admin-dash" class="section hidden-section pt-24 px-4 pb-20 max-w-7xl mx-auto">
+        <h1 class="text-3xl font-black mb-10">ADMIN <span class="text-blue-500">DASHBOARD</span></h1>
         
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div class="glass-card p-4 rounded-xl">
-                <p class="text-xs text-gray-400 uppercase">Total Students</p>
-                <p class="text-2xl font-bold">124</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-xs text-gray-500 uppercase font-bold tracking-widest">Total Students</p>
+                <p class="text-3xl font-black mt-2" id="admin-total-stu">0</p>
             </div>
-            <div class="glass-card p-4 rounded-xl">
-                <p class="text-xs text-gray-400 uppercase">Revenue (Oct)</p>
-                <p class="text-2xl font-bold text-green-400">$18,400</p>
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-xs text-gray-500 uppercase font-bold tracking-widest">Monthly Revenue</p>
+                <p class="text-3xl font-black mt-2 text-green-500" id="admin-revenue">$0</p>
             </div>
-            <div class="glass-card p-4 rounded-xl">
-                <p class="text-xs text-gray-400 uppercase">Fees Pending</p>
-                <p class="text-2xl font-bold text-red-400">12</p>
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-xs text-gray-500 uppercase font-bold tracking-widest">Fee Pendency</p>
+                <p class="text-3xl font-black mt-2 text-red-500">12%</p>
             </div>
-            <div class="glass-card p-4 rounded-xl">
-                <p class="text-xs text-gray-400 uppercase">Active Tourneys</p>
-                <p class="text-2xl font-bold">2</p>
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-xs text-gray-500 uppercase font-bold tracking-widest">Tourneys Active</p>
+                <p class="text-3xl font-black mt-2">2</p>
             </div>
         </div>
 
-        <div class="glass-card rounded-2xl overflow-hidden">
-            <div class="p-6 border-b border-white/10 flex justify-between items-center">
-                <h3 class="font-bold">Student Management</h3>
-                <button class="bg-red-500 text-xs px-4 py-2 rounded-lg font-bold">+ Add Student</button>
+        <div class="grid lg:grid-cols-2 gap-8">
+            <div class="glass rounded-3xl overflow-hidden">
+                <div class="p-6 border-b border-white/5 flex justify-between items-center bg-white/5">
+                    <h3 class="font-bold">Student Directory</h3>
+                    <button onclick="addMockStudent()" class="bg-blue-600 text-[10px] px-4 py-2 rounded-lg font-bold uppercase">Add New Student</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="text-[10px] uppercase text-gray-500 bg-slate-900">
+                            <tr>
+                                <th class="p-4">Name/ID</th>
+                                <th class="p-4">Batch</th>
+                                <th class="p-4">Fees</th>
+                                <th class="p-4">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-student-table" class="text-sm">
+                            </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left">
-                    <thead class="bg-slate-900/50 text-xs text-gray-400">
-                        <tr>
-                            <th class="p-4">Student Name</th>
-                            <th class="p-4">Batch</th>
-                            <th class="p-4">Fee Status</th>
-                            <th class="p-4">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm">
-                        <tr class="border-b border-white/5">
-                            <td class="p-4">Aryan Sharma</td>
-                            <td class="p-4">Intermediate</td>
-                            <td class="p-4"><span class="text-red-400">Overdue</span></td>
-                            <td class="p-4"><button class="text-blue-400">Edit</button></td>
-                        </tr>
-                        <tr class="border-b border-white/5">
-                            <td class="p-4">Lisa Ray</td>
-                            <td class="p-4">Advanced</td>
-                            <td class="p-4"><span class="text-green-400">Paid</span></td>
-                            <td class="p-4"><button class="text-blue-400">Edit</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+
+            <div class="glass rounded-3xl overflow-hidden">
+                <div class="p-6 border-b border-white/5 bg-white/5">
+                    <h3 class="font-bold">Tournament Manager</h3>
+                </div>
+                <div class="p-6 space-y-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <input id="new-t-name" type="text" placeholder="Tourney Name" class="p-3 rounded-lg text-sm">
+                        <input id="new-t-fee" type="number" placeholder="Fee ($)" class="p-3 rounded-lg text-sm">
+                    </div>
+                    <button onclick="createTournament()" class="w-full bg-red-600 py-3 rounded-lg font-bold uppercase text-xs">Create New Tournament</button>
+                    
+                    <div class="mt-8 space-y-4" id="admin-t-list">
+                        </div>
+                </div>
             </div>
         </div>
     </section>
-
-    <footer class="mt-20 py-10 border-t border-white/10 text-center text-gray-500 text-sm">
-        <p>&copy; 2026 SpinMaster Academy System. All Rights Reserved.</p>
-    </footer>
 
     <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+        // --- DATABASE INITIALIZATION ---
+        const DB = {
+            students: JSON.parse(localStorage.getItem('tt_students')) || [
+                { id: 'STU101', name: 'Aryan Sharma', phone: '9876543210', batch: 'Intermediate', feeStatus: 'Due', academyFee: 150 },
+                { id: 'STU102', name: 'Lisa Ray', phone: '9876543211', batch: 'Advanced', feeStatus: 'Paid', academyFee: 150 }
+            ],
+            tournaments: JSON.parse(localStorage.getItem('tt_tourneys')) || [
+                { id: 'T1', name: 'City Open 2026', fee: 25, date: '2026-02-15', level: 'State' },
+                { id: 'T2', name: 'Junior Smashers', fee: 15, date: '2026-03-01', level: 'District' }
+            ],
+            registrations: JSON.parse(localStorage.getItem('tt_regs')) || []
+        };
 
-        // Simple Router
-        function showSection(sectionId) {
+        let currentUser = null;
+
+        function saveDB() {
+            localStorage.setItem('tt_students', JSON.stringify(DB.students));
+            localStorage.setItem('tt_tourneys', JSON.stringify(DB.tournaments));
+            localStorage.setItem('tt_regs', JSON.stringify(DB.registrations));
+        }
+
+        // --- UI ROUTER ---
+        function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.add('hidden-section'));
-            document.getElementById(sectionId).classList.remove('hidden-section');
+            document.getElementById(id).classList.remove('hidden-section');
             window.scrollTo(0,0);
-            
-            // UI adjustments
-            if(sectionId === 'student-dash' || sectionId === 'admin-dash') {
-                document.getElementById('auth-btn').innerText = 'Logout';
-                document.getElementById('auth-btn').onclick = () => location.reload();
-            }
+            if (id === 'admin-dash') renderAdmin();
+            if (id === 'student-dash') renderStudentDash();
+            if (id === 'tournaments-pub') renderPublicTourneys();
         }
 
-        // Login Logic
+        // --- AUTH ---
         function handleLogin() {
-            const id = document.getElementById('login-id').value.toLowerCase();
-            if(id === 'admin') {
+            const id = document.getElementById('login-id').value;
+            if (id === 'admin') {
+                currentUser = { role: 'admin' };
                 showSection('admin-dash');
-            } else if (id === 'student') {
-                showSection('student-dash');
+                updateAuthUI('Admin');
             } else {
-                alert('Invalid Credentials. Try "admin" or "student"');
+                const stu = DB.students.find(s => s.id === id);
+                if (stu) {
+                    currentUser = stu;
+                    showSection('student-dash');
+                    updateAuthUI(stu.name);
+                } else {
+                    alert('Invalid Student ID or Admin Login');
+                }
             }
         }
 
-        /* DATABASE SCHEMA (Conceptual for Scalability)
-           -------------------------------------------
-           1. Students: { id, name, phone, batch_id, status }
-           2. Batches: { id, name, timing, coach_id }
-           3. Academy_Fees: { id, student_id, month, amount, status, transaction_id }
-           4. Tournaments: { id, title, date, fee, participants_limit }
-           5. Tournament_Reg: { id, tournament_id, student_id, payment_status }
-        */
+        function updateAuthUI(name) {
+            document.getElementById('auth-controls').innerHTML = `
+                <div class="flex items-center gap-4">
+                    <span class="text-xs text-gray-400 font-bold uppercase hidden md:inline">${name}</span>
+                    <button onclick="location.reload()" class="bg-white/10 px-4 py-2 rounded-lg text-[10px] font-bold uppercase">Logout</button>
+                </div>
+            `;
+        }
+
+        // --- STUDENT LOGIC ---
+        function renderStudentDash() {
+            document.getElementById('student-welcome').innerText = `Welcome back, ${currentUser.name}`;
+            document.getElementById('stu-batch-display').innerText = currentUser.batch;
+            document.getElementById('stu-id-display').innerText = currentUser.id;
+
+            // Fee Section
+            const fBadge = document.getElementById('fee-badge');
+            const payBtn = document.getElementById('pay-academy-btn');
+            const qr = document.getElementById('qr-code');
+            
+            fBadge.innerText = currentUser.feeStatus;
+            fBadge.className = `px-4 py-1 rounded-full text-xs font-bold uppercase status-${currentUser.feeStatus.toLowerCase()}`;
+            
+            if(currentUser.feeStatus === 'Paid') {
+                payBtn.innerText = 'FEES PAID ✓';
+                payBtn.disabled = true;
+                payBtn.classList.replace('bg-blue-600', 'bg-green-600');
+                qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${currentUser.id}_PAID`;
+            }
+
+            // Tournament Section
+            const tList = document.getElementById('student-tournaments');
+            tList.innerHTML = DB.tournaments.map(t => {
+                const isReg = DB.registrations.find(r => r.sid === currentUser.id && r.tid === t.id);
+                return `
+                    <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
+                        <p class="font-bold">${t.name}</p>
+                        <p class="text-xs text-gray-500 mb-3">$${t.fee} • ${t.date}</p>
+                        ${isReg ? 
+                          `<span class="text-[10px] font-bold text-green-500 uppercase">Registered ✓</span>` : 
+                          `<button onclick="payFee('tournament', '${t.id}')" class="text-[10px] font-bold text-red-500 uppercase">Register & Pay →</button>`}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function payFee(type, tid = null) {
+            if(confirm(`Proceed to payment for ${type}?`)) {
+                if(type === 'academy') {
+                    currentUser.feeStatus = 'Paid';
+                    const idx = DB.students.findIndex(s => s.id === currentUser.id);
+                    DB.students[idx].feeStatus = 'Paid';
+                } else {
+                    DB.registrations.push({ sid: currentUser.id, tid: tid, date: new Date().toLocaleDateString() });
+                }
+                saveDB();
+                renderStudentDash();
+                alert('Payment Successful! Receipt generated in system.');
+            }
+        }
+
+        // --- ADMIN LOGIC ---
+        function renderAdmin() {
+            const table = document.getElementById('admin-student-table');
+            table.innerHTML = DB.students.map(s => `
+                <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                    <td class="p-4 font-bold">${s.name}<br><span class="text-[10px] text-gray-500">${s.id}</span></td>
+                    <td class="p-4">${s.batch}</td>
+                    <td class="p-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold status-${s.feeStatus.toLowerCase()}">${s.feeStatus}</span></td>
+                    <td class="p-4"><button onclick="toggleStudent('${s.id}')" class="text-blue-500 text-xs">Toggle Fee</button></td>
+                </tr>
+            `).join('');
+
+            document.getElementById('admin-total-stu').innerText = DB.students.length;
+            const revenue = DB.students.filter(s => s.feeStatus === 'Paid').length * 150;
+            document.getElementById('admin-revenue').innerText = `$${revenue}`;
+
+            const tList = document.getElementById('admin-t-list');
+            tList.innerHTML = DB.tournaments.map(t => {
+                const count = DB.registrations.filter(r => r.tid === t.id).length;
+                return `
+                    <div class="flex justify-between items-center bg-white/5 p-3 rounded-lg">
+                        <div><p class="text-sm font-bold">${t.name}</p><p class="text-[10px] text-gray-500">${count} Participants</p></div>
+                        <button class="text-[10px] bg-white/10 px-3 py-1 rounded">Export CSV</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function addMockStudent() {
+            const id = 'STU' + (100 + DB.students.length + 1);
+            DB.students.push({ id, name: 'New Student', phone: '0000', batch: 'Beginner', feeStatus: 'Due', academyFee: 150 });
+            saveDB();
+            renderAdmin();
+        }
+
+        function toggleStudent(id) {
+            const s = DB.students.find(x => x.id === id);
+            s.feeStatus = s.feeStatus === 'Paid' ? 'Due' : 'Paid';
+            saveDB();
+            renderAdmin();
+        }
+
+        function createTournament() {
+            const name = document.getElementById('new-t-name').value;
+            const fee = document.getElementById('new-t-fee').value;
+            if(!name || !fee) return alert('Enter details');
+            DB.tournaments.unshift({ id: 'T'+Date.now(), name, fee, date: '2026-05-01', level: 'Open' });
+            saveDB();
+            renderAdmin();
+        }
+
+        function renderPublicTourneys() {
+            const list = document.getElementById('tournament-list-public');
+            list.innerHTML = DB.tournaments.map(t => `
+                <div class="glass p-6 rounded-2xl flex justify-between items-center">
+                    <div>
+                        <h4 class="text-xl font-bold">${t.name}</h4>
+                        <p class="text-sm text-gray-500">${t.date} • Venue: Main Arena • ${t.level}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-2xl font-black text-red-500">$${t.fee}</p>
+                        <button onclick="showSection('login-page')" class="text-xs font-bold text-blue-400 uppercase">Login to Register</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Init icons
+        lucide.createIcons();
     </script>
 </body>
 </html>
