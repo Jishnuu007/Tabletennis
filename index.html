@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpinMaster | Table Tennis Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.0/lucide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: white; }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .bg-tt-hero { 
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
+            url('https://images.unsplash.com/photo-1534158914592-062992fbe900?auto=format&fit=crop&q=80&w=1600');
+            background-size: cover; background-position: center;
+        }
+        .accent-red { color: #ef4444; }
+        .bg-accent-red { background-color: #ef4444; }
+        .hidden-section { display: none; }
+    </style>
+</head>
+<body>
+
+    <nav class="fixed w-full z-50 glass-card px-4 py-3 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <div class="bg-accent-red p-1 rounded-full"><i data-lucide="table-tennis" class="text-white w-5 h-5"></i></div>
+            <span class="font-bold text-xl tracking-tight">SPIN<span class="text-red-500">MASTER</span></span>
+        </div>
+        <div id="nav-links" class="hidden md:flex gap-6 text-sm font-medium">
+            <a href="#" onclick="showSection('home')" class="hover:text-red-500 transition">Home</a>
+            <a href="#" onclick="showSection('programs')" class="hover:text-red-500 transition">Programs</a>
+            <a href="#" onclick="showSection('tournaments')" class="hover:text-red-500 transition">Tournaments</a>
+        </div>
+        <button id="auth-btn" onclick="showSection('login')" class="bg-accent-red px-5 py-2 rounded-full text-sm font-bold hover:bg-red-600 transition">Login</button>
+    </nav>
+
+    <section id="home" class="section pt-32 pb-20 px-6 bg-tt-hero min-h-screen flex flex-col justify-center items-center text-center">
+        <h1 class="text-5xl md:text-7xl font-bold mb-4">SMASH YOUR <span class="text-red-500">LIMITS.</span></h1>
+        <p class="text-gray-300 max-w-2xl text-lg mb-8">Elite training for the next generation of champions. Professional coaching, world-class facilities, and a path to pro.</p>
+        <div class="flex gap-4">
+            <button onclick="showSection('login')" class="bg-accent-red px-8 py-3 rounded-lg font-bold">Join Academy</button>
+            <button onclick="showSection('programs')" class="border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-white/10">View Batches</button>
+        </div>
+    </section>
+
+    <section id="programs" class="section hidden-section pt-32 px-6 max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold mb-10 text-center">Training <span class="text-red-500">Programs</span></h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="glass-card p-8 rounded-2xl border-t-4 border-blue-500">
+                <h3 class="text-xl font-bold mb-2">Beginner</h3>
+                <p class="text-gray-400 mb-4">Focus on grip, basic strokes, and footwork basics.</p>
+                <div class="text-sm space-y-2">
+                    <p>🕒 Mon-Wed-Fri (4 PM)</p>
+                    <p>🏆 Foundation Level</p>
+                </div>
+            </div>
+            <div class="glass-card p-8 rounded-2xl border-t-4 border-red-500">
+                <h3 class="text-xl font-bold mb-2">Intermediate</h3>
+                <p class="text-gray-400 mb-4">Advanced spin control, multi-ball drills, and tactics.</p>
+                <div class="text-sm space-y-2">
+                    <p>🕒 Tue-Thu-Sat (5 PM)</p>
+                    <p>🏆 State Level Prep</p>
+                </div>
+            </div>
+            <div class="glass-card p-8 rounded-2xl border-t-4 border-yellow-500">
+                <h3 class="text-xl font-bold mb-2">Advanced / Pro</h3>
+                <p class="text-gray-400 mb-4">High-intensity training, video analysis, and tournament play.</p>
+                <div class="text-sm space-y-2">
+                    <p>🕒 Daily (6 AM & 6 PM)</p>
+                    <p>🏆 National Level</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="login" class="section hidden-section pt-40 px-6 flex justify-center">
+        <div class="glass-card p-8 rounded-2xl w-full max-w-md">
+            <h2 class="text-2xl font-bold mb-6 text-center">Academy Login</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Student ID / Phone</label>
+                    <input id="login-id" type="text" placeholder="STU101" class="w-full bg-slate-900 border border-white/10 p-3 rounded-lg focus:outline-none focus:border-red-500">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Password</label>
+                    <input id="login-pass" type="password" placeholder="••••••••" class="w-full bg-slate-900 border border-white/10 p-3 rounded-lg focus:outline-none focus:border-red-500">
+                </div>
+                <button onclick="handleLogin()" class="w-full bg-accent-red py-3 rounded-lg font-bold mt-4">Sign In</button>
+                <p class="text-xs text-center text-gray-500">Demo: Use 'admin' for Admin or 'student' for Student dashboard.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="student-dash" class="section hidden-section pt-24 px-4 max-w-4xl mx-auto">
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <p class="text-red-500 font-bold">Welcome back,</p>
+                <h1 class="text-3xl font-bold">Aryan Sharma</h1>
+            </div>
+            <div class="text-right">
+                <span class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-xs font-bold">Active Student</span>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="font-bold flex items-center gap-2"><i data-lucide="credit-card" class="w-5 h-5"></i> Academy Fees</h3>
+                    <span class="text-red-400 text-xs font-bold">DUE IN 3 DAYS</span>
+                </div>
+                <div class="bg-slate-900/50 p-4 rounded-xl mb-4">
+                    <p class="text-sm text-gray-400">Monthly Training Fee</p>
+                    <p class="text-2xl font-bold">$150.00</p>
+                </div>
+                <button onclick="alert('Redirecting to Payment Gateway...')" class="w-full bg-blue-600 py-3 rounded-xl font-bold text-sm">Pay Fees Now</button>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl">
+                <h3 class="font-bold mb-4 flex items-center gap-2"><i data-lucide="trophy" class="w-5 h-5"></i> Tournaments</h3>
+                <div class="space-y-3">
+                    <div class="border-b border-white/5 pb-2">
+                        <p class="text-sm font-semibold">City Open Championship</p>
+                        <p class="text-xs text-gray-400">Oct 24 • Entry: $25</p>
+                        <button class="mt-2 text-xs text-red-400 font-bold">Register Now →</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center">
+                <h3 class="font-bold mb-4">Attendance QR</h3>
+                <div class="bg-white p-2 rounded-lg mb-2">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=STU101_PAID" alt="QR Code">
+                </div>
+                <p class="text-xs text-gray-400">Show this at the reception for entry</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="admin-dash" class="section hidden-section pt-24 px-4 max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8">Admin <span class="text-red-500">Control Panel</span></h1>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="glass-card p-4 rounded-xl">
+                <p class="text-xs text-gray-400 uppercase">Total Students</p>
+                <p class="text-2xl font-bold">124</p>
+            </div>
+            <div class="glass-card p-4 rounded-xl">
+                <p class="text-xs text-gray-400 uppercase">Revenue (Oct)</p>
+                <p class="text-2xl font-bold text-green-400">$18,400</p>
+            </div>
+            <div class="glass-card p-4 rounded-xl">
+                <p class="text-xs text-gray-400 uppercase">Fees Pending</p>
+                <p class="text-2xl font-bold text-red-400">12</p>
+            </div>
+            <div class="glass-card p-4 rounded-xl">
+                <p class="text-xs text-gray-400 uppercase">Active Tourneys</p>
+                <p class="text-2xl font-bold">2</p>
+            </div>
+        </div>
+
+        <div class="glass-card rounded-2xl overflow-hidden">
+            <div class="p-6 border-b border-white/10 flex justify-between items-center">
+                <h3 class="font-bold">Student Management</h3>
+                <button class="bg-red-500 text-xs px-4 py-2 rounded-lg font-bold">+ Add Student</button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-slate-900/50 text-xs text-gray-400">
+                        <tr>
+                            <th class="p-4">Student Name</th>
+                            <th class="p-4">Batch</th>
+                            <th class="p-4">Fee Status</th>
+                            <th class="p-4">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-white/5">
+                            <td class="p-4">Aryan Sharma</td>
+                            <td class="p-4">Intermediate</td>
+                            <td class="p-4"><span class="text-red-400">Overdue</span></td>
+                            <td class="p-4"><button class="text-blue-400">Edit</button></td>
+                        </tr>
+                        <tr class="border-b border-white/5">
+                            <td class="p-4">Lisa Ray</td>
+                            <td class="p-4">Advanced</td>
+                            <td class="p-4"><span class="text-green-400">Paid</span></td>
+                            <td class="p-4"><button class="text-blue-400">Edit</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer class="mt-20 py-10 border-t border-white/10 text-center text-gray-500 text-sm">
+        <p>&copy; 2026 SpinMaster Academy System. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Simple Router
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden-section'));
+            document.getElementById(sectionId).classList.remove('hidden-section');
+            window.scrollTo(0,0);
+            
+            // UI adjustments
+            if(sectionId === 'student-dash' || sectionId === 'admin-dash') {
+                document.getElementById('auth-btn').innerText = 'Logout';
+                document.getElementById('auth-btn').onclick = () => location.reload();
+            }
+        }
+
+        // Login Logic
+        function handleLogin() {
+            const id = document.getElementById('login-id').value.toLowerCase();
+            if(id === 'admin') {
+                showSection('admin-dash');
+            } else if (id === 'student') {
+                showSection('student-dash');
+            } else {
+                alert('Invalid Credentials. Try "admin" or "student"');
+            }
+        }
+
+        /* DATABASE SCHEMA (Conceptual for Scalability)
+           -------------------------------------------
+           1. Students: { id, name, phone, batch_id, status }
+           2. Batches: { id, name, timing, coach_id }
+           3. Academy_Fees: { id, student_id, month, amount, status, transaction_id }
+           4. Tournaments: { id, title, date, fee, participants_limit }
+           5. Tournament_Reg: { id, tournament_id, student_id, payment_status }
+        */
+    </script>
+</body>
+</html>
